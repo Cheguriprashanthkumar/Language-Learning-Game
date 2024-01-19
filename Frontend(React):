@@ -1,0 +1,35 @@
+// client/src/components/QuizQuestion.js
+// (Assuming you have a basic React app structure created)
+
+// ... (same as previous example)
+
+// client/src/App.js
+import React, { useEffect, useState } from 'react';
+import QuizQuestion from './components/QuizQuestion';
+
+function App() {
+  const [questions, setQuestions] = useState([]);
+
+  useEffect(() => {
+    // Fetch questions from the backend when the component mounts
+    fetch('/api/questions')
+      .then((response) => response.json())
+      .then((data) => setQuestions(data));
+  }, []);
+
+  const handleAnswer = (selectedOption) => {
+    // Implement logic to handle the user's answer
+    console.log(`Selected option: ${selectedOption}`);
+  };
+
+  return (
+    <div>
+      <h1>Language Learning Game</h1>
+      {questions.map((question, index) => (
+        <QuizQuestion key={index} {...question} onAnswer={handleAnswer} />
+      ))}
+    </div>
+  );
+}
+
+export default App;
